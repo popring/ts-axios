@@ -76,6 +76,23 @@ axios({
     b: 2
   }
 })
+axios({
+  method: 'POST',
+  url: '/base/post',
+  headers: '',
+  data: {
+    a: 1,
+    b: 2
+  }
+})
+// data 为某些类型如（URLSearchParams）时，浏览器会自动添加合适的 Content-Type
+const paramsString = 'q=URLUtils.searchParams&topic=api'
+const searchParams = new URLSearchParams(paramsString)
+axios({
+  method: 'post',
+  url: '/base/post',
+  data: searchParams
+})
 
 // 处理buffer
 const arr = new Int32Array([21, 32])
