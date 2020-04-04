@@ -26,6 +26,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 const router = express.Router()
+// 路由
 router.get('/simple/get', function(req, res) {
   res.json({
     msg: 'Hello World'
@@ -34,6 +35,24 @@ router.get('/simple/get', function(req, res) {
 
 router.get('/base/get', function(req, res) {
   res.json(req.query)
+})
+
+router.post('/base/post', function(req, res) {
+  res.json(req.body)
+})
+
+router.post('/base/buffer', function(req, res) {
+  let msg = []
+  req.on('data', chunk=> {
+    if(chunk) {
+      msg.push(chunk)
+    }
+  })
+
+  req.on('end', ()=>{
+    let buf = new Buffer(msg)
+    res.json(buf.toJSON())
+  })
 })
 
 app.use(router)
