@@ -1,13 +1,15 @@
-import { AxiosRequestConfig, AxiosPromise } from './types/index'
+import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types/index'
 import xhr from './xhr'
 import { buildURL } from './helpers/url'
-import { transformRequst } from './helpers/data'
+import { transformRequst, transformResponse } from './helpers/data'
 import { processHeaders } from './helpers/headers'
 
 // 主函数
 function axios(config: AxiosRequestConfig): AxiosPromise {
   processConfig(config)
-  return xhr(config)
+  return xhr(config).then(res => {
+    return transformResponseData(res)
+  })
 }
 
 // 修改config参数
@@ -29,9 +31,15 @@ function transformURL(config: AxiosRequestConfig) {
   return buildURL(url, params)
 }
 
-// 转换data
+// 转换请求data
 function transformRequest(config: AxiosRequestConfig) {
   return transformRequst(config.data)
+}
+
+// 转换返回data
+function transformResponseData(res: AxiosResponse) {
+  res.data = transformResponse(res.data)
+  return res
 }
 
 export default axios

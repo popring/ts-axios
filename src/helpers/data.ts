@@ -7,3 +7,15 @@ export function transformRequst<T>(data: T): string | T {
   }
   return data
 }
+
+// 返回数据转换为对象
+export function transformResponse<T>(data: T): T {
+  if (typeof data === 'string') {
+    try {
+      data = JSON.parse(data)
+    } catch (error) {
+      // TODO
+    }
+  }
+  return data
+}

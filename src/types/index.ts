@@ -6,6 +6,7 @@ export interface AxiosRequestConfig {
   params?: any
   headers?: any
   responseType?: XMLHttpRequestResponseType
+  timeout?: number
 }
 
 // axios 响应
@@ -15,7 +16,7 @@ export interface AxiosResponse {
   statusText: string
   headers?: any
   config?: AxiosRequestConfig
-  request?: any
+  request?: XMLHttpRequest
 }
 
 export interface AxiosPromise extends Promise<AxiosResponse> {}

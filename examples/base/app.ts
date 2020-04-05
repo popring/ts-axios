@@ -110,8 +110,8 @@ axios({
     a: 1,
     b: 2
   }
-}).then(res=> {
-  console.log( (typeof res.data) === 'string');
+}).then(res => {
+  console.log(typeof res.data, 'string')
 })
 axios({
   method: 'POST',
@@ -121,6 +121,6 @@ axios({
     a: 3,
     b: 4
   }
-}).then(res=> {
-  console.log( (typeof res.data) === 'object');
+}).then(res => {
+  console.log(typeof res.data === 'object')
 })
