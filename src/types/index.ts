@@ -38,3 +38,11 @@ export type Method =
   | 'DELETE'
   | 'patch'
   | 'PATCH'
+
+export interface AxiosError extends Error {
+  isAxiosError: boolean
+  config: AxiosRequestConfig
+  code?: string
+  request?: XMLHttpRequest
+  response?: AxiosResponse
+}

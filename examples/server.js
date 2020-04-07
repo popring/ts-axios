@@ -43,16 +43,35 @@ router.post('/base/post', function(req, res) {
 
 router.post('/base/buffer', function(req, res) {
   let msg = []
-  req.on('data', chunk=> {
-    if(chunk) {
+  req.on('data', chunk => {
+    if (chunk) {
       msg.push(chunk)
     }
   })
 
-  req.on('end', ()=>{
+  req.on('end', () => {
     let buf = new Buffer(msg)
     res.json(buf.toJSON())
   })
+})
+
+router.get('/error/get', function(req, res) {
+  if (Math.random() > 0.5) {
+    res.json({
+      msg: 'Hello World'
+    })
+  } else {
+    res.sendStatus(500)
+    res.end()
+  }
+})
+
+router.get('/error/timeout', function(req, res) {
+  setTimeout(() => {
+    res.json({
+      msg: 'Hello World'
+    })
+  }, 3000)
 })
 
 app.use(router)
