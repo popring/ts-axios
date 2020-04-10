@@ -25,14 +25,16 @@ app.use(express.static(__dirname))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// ! 路由
 const router = express.Router()
-// 路由
+// * simple ************************************************
 router.get('/simple/get', function(req, res) {
   res.json({
     msg: 'Hello World'
   })
 })
 
+// * base ************************************************
 router.get('/base/get', function(req, res) {
   res.json(req.query)
 })
@@ -55,6 +57,8 @@ router.post('/base/buffer', function(req, res) {
   })
 })
 
+// * error ************************************************
+
 router.get('/error/get', function(req, res) {
   if (Math.random() > 0.5) {
     res.json({
@@ -72,6 +76,36 @@ router.get('/error/timeout', function(req, res) {
       msg: 'Hello World'
     })
   }, 3000)
+})
+
+// * extend ************************************************
+
+router.get('/extend/get', function(req, res) {
+  res.json(req.params)
+})
+
+router.post('/extend/post', function(req, res) {
+  res.json(req.body)
+})
+
+router.options('/extend/options', function(req, res) {
+  res.json({
+    msg: '访问成功'
+  })
+})
+
+router.delete('/extend/delete', function(req, res) {
+  res.json({
+    msg: '访问成功'
+  })
+})
+
+router.put('/extend/put', function(req, res) {
+  res.json(req.body)
+})
+
+router.patch('/extend/patch', function(req, res) {
+  res.json(req.body)
 })
 
 app.use(router)

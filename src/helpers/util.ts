@@ -16,3 +16,15 @@ export function isDate(val: any): boolean {
 export function isPlainObject(val: any): boolean {
   return toString.call(val) === '[object Object]'
 }
+
+/**
+ * 将 from 中的属性扩展到 to 中，包括原型上的属性
+ * @param to 待扩展对象
+ * @param from 扩展对象
+ */
+export function extend<T, U>(to: T, from: U): T & U {
+  for (const key in from) {
+    ;(to as T & U)[key] = from[key] as any
+  }
+  return to as T & U
+}

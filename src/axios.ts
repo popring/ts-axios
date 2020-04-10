@@ -1,45 +1,15 @@
-import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types/index'
-import xhr from './xhr'
-import { buildURL } from './helpers/url'
-import { transformRequst, transformResponse } from './helpers/data'
-import { processHeaders } from './helpers/headers'
+import { AxiosInstance } from "./types";
+import Axios from "./core/Axios";
+import { extend } from "./helpers/util";
 
-// 主函数
-function axios(config: AxiosRequestConfig): AxiosPromise {
-  processConfig(config)
-  return xhr(config).then(res => {
-    return transformResponseData(res)
-  })
+function axiosInstance(): AxiosInstance {
+  const context = new Axios()
+  const instace = Axios.prototype.request.bind(context)
+  extend(instace, context)
+  // 由于 ts 不能正确推断类型，所以自定义断言为指定类型
+  return instace as AxiosInstance
 }
 
-// 修改config参数
-function processConfig(config: AxiosRequestConfig) {
-  config.url = transformURL(config)
-  config.headers = transformHeaders(config)
-  config.data = transformRequest(config)
-}
-
-// 转换headers
-function transformHeaders(config: AxiosRequestConfig) {
-  const { headers = {}, data } = config
-  return processHeaders(headers, data)
-}
-
-// 转换url
-function transformURL(config: AxiosRequestConfig) {
-  const { url, params } = config
-  return buildURL(url, params)
-}
-
-// 转换请求data
-function transformRequest(config: AxiosRequestConfig) {
-  return transformRequst(config.data)
-}
-
-// 转换返回data
-function transformResponseData(res: AxiosResponse) {
-  res.data = transformResponse(res.data)
-  return res
-}
+const axios = axiosInstance()
 
 export default axios
