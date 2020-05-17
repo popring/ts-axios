@@ -7,6 +7,7 @@ import transform from './transform'
 
 // 主函数
 export function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
+  throwIfCancellationReequested(config)
   processConfig(config)
   return xhr(config).then(res => {
     return transformResponseData(res)
@@ -37,4 +38,10 @@ function transformURL(config: AxiosRequestConfig) {
 function transformResponseData(res: AxiosResponse) {
   res.data = transform(res.data, res.headers, res.config.transformResponse!)
   return res
+}
+// 重复请求，抛出异常
+function throwIfCancellationReequested(config: AxiosRequestConfig): void {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested()
+  }
 }

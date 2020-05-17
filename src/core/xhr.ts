@@ -3,7 +3,7 @@ import { createError } from '../helpers/error'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
-    const { url, method = 'get', data = null, headers, responseType, timeout } = config
+    const { url, method = 'get', data = null, headers, responseType, timeout, cancelToken } = config
     const request = new XMLHttpRequest()
 
     if (responseType) {
@@ -13,8 +13,15 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       request.timeout = timeout
     }
 
+    if (cancelToken) {
+      cancelToken.promise.then(reason => {
+        request.abort()
+        reject(reason)
+      })
+    }
+
     // 创建一个请求
-    request.open(method?.toUpperCase(), url)
+    request.open(method?.toUpperCase(), url!)
 
     // 处理请求
     request.onreadystatechange = function handleLoad() {
@@ -39,7 +46,15 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       if (response.status >= 200 || response.status < 300) {
         resolve(response)
       } else {
-        reject(createError(`Request failed with status code ${response.status}`, config, null, request, response))
+        reject(
+          createError(
+            `Request failed with status code ${response.status}`,
+            config,
+            null,
+            request,
+            response
+          )
+        )
       }
     }
 
