@@ -1,9 +1,10 @@
 import { AxiosInstance } from "./types";
 import Axios from "./core/Axios";
 import { extend } from "./helpers/util";
+import defaults from "./default";
 
 function axiosInstance(): AxiosInstance {
-  const context = new Axios()
+  const context = new Axios(defaults)
   const instace = Axios.prototype.request.bind(context)
   extend(instace, context)
   // 由于 ts 不能正确推断类型，所以自定义断言为指定类型
