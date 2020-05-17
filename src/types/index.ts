@@ -24,7 +24,13 @@ export interface AxiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
+  transformRequest?: AxiosTransformer | AxiosTransformer[]
+  transformResponse?: AxiosTransformer | AxiosTransformer[]
   [propName: string]: any
+}
+
+export interface AxiosTransformer {
+  (data: any, headers?: any): any
 }
 
 // axios 响应
@@ -52,7 +58,7 @@ export interface AxiosError extends Error {
 interface Axios {
   defaults: AxiosRequestConfig
   interceptors: {
-    request: AxiosInterceptorManager<AxiosResponse>,
+    request: AxiosInterceptorManager<AxiosResponse>
     response: AxiosInterceptorManager<AxiosResponse>
   }
 
