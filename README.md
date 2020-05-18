@@ -22,7 +22,7 @@ ts 搭建axios
 - [x] 扩展 axios.create 静态接口
 - [x] 取消功能的实现
 - [x] withCredentials（解决跨域不携带cookie）
-- [ ] XSRF 防御
+- [x] XSRF 防御
 - [ ] 上传和下载的进度监控
 - [ ] HTTP 授权
 - [ ] 自定义合法状态码
