@@ -40,6 +40,8 @@ export interface AxiosRequestConfig {
   onUploadProgess?: (e: ProgressEvent) => void
   // Authorization 属性
   auth?: AxiosBasicCredentials
+  // 自定义合法状态码规则
+  validateStatus?: (status: number) => boolean
   [propName: string]: any
 }
 

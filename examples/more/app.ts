@@ -1,4 +1,4 @@
-import axios from '../../src/index'
+import axios, { AxiosError } from '../../src/index'
 // document.cookie = 'a=b'
 
 // axios.get('/more/get').then(res => {
@@ -102,19 +102,43 @@ import axios from '../../src/index'
 
 // -----------------------------------------------------
 
+// axios
+//   .post(
+//     '/more/post',
+//     {
+//       a: 1
+//     },
+//     {
+//       auth: {
+//         username: 'Yee',
+//         password: '123456'
+//       }
+//     }
+//   )
+//   .then(res => {
+//     console.log(res)
+//   })
+
+// -----------------------------------------------------
+
 axios
-  .post(
-    '/more/post',
-    {
-      a: 1
-    },
-    {
-      auth: {
-        username: 'Yee',
-        password: '123456'
-      }
-    }
-  )
+  .get('/more/304')
   .then(res => {
     console.log(res)
+  })
+  .catch((e: AxiosError) => {
+    console.log(e.message)
+  })
+
+axios
+  .get('/more/304', {
+    validateStatus(status) {
+      return status >= 200 && status < 400
+    }
+  })
+  .then(res => {
+    console.log(res)
+  })
+  .catch((e: AxiosError) => {
+    console.log(e.message)
   })
