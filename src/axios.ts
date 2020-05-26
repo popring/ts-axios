@@ -7,7 +7,7 @@ import CancelToken from './cancel/cancelToken'
 import Cancel, { isCancel } from './cancel/Cancel'
 
 function createInstance(config: AxiosRequestConfig): AxiosStatic {
-  const context = new Axios(defaults)
+  const context = new Axios(config)
   const instace = Axios.prototype.request.bind(context)
   extend(instace, context)
   // 由于 ts 不能正确推断类型，所以自定义断言为指定类型

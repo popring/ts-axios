@@ -24,8 +24,6 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     } = config
     const request = new XMLHttpRequest()
 
-    configureRequest()
-
     // 创建一个请求
     request.open(method?.toUpperCase(), url!)
 
