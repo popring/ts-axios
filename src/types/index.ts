@@ -38,6 +38,8 @@ export interface AxiosRequestConfig {
   onDownloadProgress?: (e: ProgressEvent) => void
   // 上传监控
   onUploadProgess?: (e: ProgressEvent) => void
+  // Authorization 属性
+  auth?: AxiosBasicCredentials
   [propName: string]: any
 }
 
@@ -157,4 +159,9 @@ export interface AxiosStatic extends AxiosInstance {
   CancelToken: CancelTokenStatic
   Cancel: CancelStatic
   isCancel: (value: any) => boolean
+}
+
+export interface AxiosBasicCredentials {
+  username: string
+  password: string
 }

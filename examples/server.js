@@ -5,6 +5,7 @@ const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpackConfig = require('./webpack.config')
+const atob = require('atob')
 
 require('./server2')
 
@@ -173,9 +174,11 @@ router.get('/more/B', function(req, res) {
 })
 
 const multipart = require('connect-multiparty')
-app.use(multipart({
-  uploadDir: path.resolve(__dirname, 'upload-file')
-}))
+app.use(
+  multipart({
+    uploadDir: path.resolve(__dirname, 'upload-file')
+  })
+)
 
 router.post('/more/upload', function(req, res) {
   console.log(req.body, req.files)
