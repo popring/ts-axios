@@ -17,6 +17,7 @@ export type Method =
 
 // axios 请求配置
 export interface AxiosRequestConfig {
+  [propName: string]: any
   url?: string
   method?: Method
   data?: any
@@ -42,7 +43,8 @@ export interface AxiosRequestConfig {
   auth?: AxiosBasicCredentials
   // 自定义合法状态码规则
   validateStatus?: (status: number) => boolean
-  [propName: string]: any
+  // 自定义参数解析规则
+  paramsSerializer?: (params: any) => string
 }
 
 export interface AxiosTransformer {
