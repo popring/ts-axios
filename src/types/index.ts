@@ -22,14 +22,22 @@ export interface AxiosRequestConfig {
   data?: any
   params?: any
   headers?: any
+  // 返回数据类型
   responseType?: XMLHttpRequestResponseType
+  // 超时
   timeout?: number
   transformRequest?: AxiosTransformer | AxiosTransformer[]
   transformResponse?: AxiosTransformer | AxiosTransformer[]
   cancelToken?: CancelToken
+  // 跨域携带cookies
   withCredentials?: boolean
+  // xsrf防御
   xsrfCookieName?: string
   xsrfHeaderName?: string
+  // 下载监控
+  onDownloadProgress?: (e: ProgressEvent) => void
+  // 上传监控
+  onUploadProgess?: (e: ProgressEvent) => void
   [propName: string]: any
 }
 

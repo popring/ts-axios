@@ -93,6 +93,7 @@
     "commitizen": "^3.0.0",
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
+    "css-loader": "^3.5.3",
     "cz-conventional-changelog": "^2.1.0",
     "express": "^4.16.4",
     "husky": "^1.0.1",
@@ -127,7 +128,9 @@
     "webpack-hot-middleware": "^2.24.3"
   },
   "dependencies": {
+    "connect-multiparty": "^2.2.0",
     "cookie-parser": "^1.4.5",
+    "nprogress": "^0.2.0",
     "qs": "^6.9.4"
   }
 }

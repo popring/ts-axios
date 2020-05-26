@@ -29,6 +29,10 @@ export function extend<T, U>(to: T, from: U): T & U {
   return to as T & U
 }
 
+/**
+ * 深度遍历合并对象
+ * @param objs 对象
+ */
 export function deepMerge(...objs: any[]): any {
   const result = Object.create(null)
 
@@ -50,4 +54,8 @@ export function deepMerge(...objs: any[]): any {
   })
 
   return result
+}
+
+export default function isFormData(val: any): boolean {
+  return typeof val !== 'undefined' && val instanceof FormData
 }
