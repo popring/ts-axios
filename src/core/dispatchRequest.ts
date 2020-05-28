@@ -29,7 +29,7 @@ function transformHeaders(config: AxiosRequestConfig) {
 }
 
 // 转换url
-function transformURL(config: AxiosRequestConfig): string {
+export function transformURL(config: AxiosRequestConfig): string {
   let { url, params, paramsSerializer, baseURL } = config
   if (baseURL && !isAbsoluteURL(url!)) {
     url = combineURL(baseURL, url)
