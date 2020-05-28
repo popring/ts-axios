@@ -20,8 +20,20 @@ axios.create = function create(config: AxiosRequestConfig) {
   return createInstance(mergeConfig(defaults, config!))
 }
 
+axios.all = function all(promise) {
+  return Promise.all(promise)
+}
+
+axios.spread = function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr)
+  }
+}
+
 axios.CancelToken = CancelToken
 axios.Cancel = Cancel
 axios.isCancel = isCancel
+
+axios.Axios = Axios
 
 export default axios

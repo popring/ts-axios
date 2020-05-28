@@ -97,6 +97,8 @@ interface Axios {
   head<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 
   options<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+
+  getUri(config?: AxiosRequestConfig): string
 }
 
 // Axios 实例
@@ -119,10 +121,6 @@ export interface ResolveFn<T = any> {
 
 export interface RejectedFn {
   (error: any): any
-}
-
-export interface AxiosStatic extends AxiosInstance {
-  create(config?: AxiosRequestConfig): AxiosInstance
 }
 
 export interface CancelToken {
@@ -165,9 +163,27 @@ export interface AxiosStatic extends AxiosInstance {
   CancelToken: CancelTokenStatic
   Cancel: CancelStatic
   isCancel: (value: any) => boolean
+
+  /**
+   * 不推荐使用，可用 Promise.all() 替换
+   * @param promise promise数组
+   */
+  all<T>(promise: Array<T | Promise<T>>): Promise<T[]>
+
+  /**
+   * 不推荐使用
+   * @param callback 回调函数
+   */
+  spread<T, R>(callback: (...args: T[]) => R): (arr: T[]) => R
+
+  Axios: AxiosClassStatic
 }
 
 export interface AxiosBasicCredentials {
   username: string
   password: string
+}
+
+export interface AxiosClassStatic extends AxiosInstance {
+  new (config: AxiosRequestConfig): Axios
 }
