@@ -63,7 +63,7 @@ export function buildURL(
   if (serializedParams) {
     const markIndex = url.indexOf('#')
     if (markIndex !== -1) {
-      url += url.slice(0, markIndex)
+      url = url.slice(0, markIndex)
     }
 
     url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams

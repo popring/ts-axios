@@ -1,7 +1,7 @@
 import { isPlainObject } from './util'
 
 // 转换请求参数
-export function transformRequst<T>(data: T): string | T {
+export function transformRequest<T>(data: T): string | T {
   if (isPlainObject(data)) {
     return JSON.stringify(data)
   }
@@ -14,7 +14,7 @@ export function transformResponse<T>(data: T): T {
     try {
       data = JSON.parse(data)
     } catch (error) {
-      // TODO
+      // do something
     }
   }
   return data

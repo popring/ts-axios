@@ -3,6 +3,7 @@ import { createError } from '../helpers/error'
 import { isURLSameOrigin } from '../helpers/url'
 import cookie from '../helpers/cookie'
 import { isFormData } from '../helpers/util'
+import { parseHeaders } from '../helpers/headers'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
@@ -58,7 +59,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         if (request.readyState !== 4) return
         if (request.status === 0) return
 
-        const responseHeaders = request.getAllResponseHeaders()
+        const responseHeaders = parseHeaders(request.getAllResponseHeaders())
         const responseData =
           responseType && responseType !== 'text' ? request.response : request.responseText
         const response: AxiosResponse = {
