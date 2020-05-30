@@ -9,9 +9,17 @@ import transform from './transform'
 export function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
   throwIfCancellationReequested(config)
   processConfig(config)
-  return xhr(config).then(res => {
-    return transformResponseData(res)
-  })
+  return xhr(config).then(
+    res => {
+      return transformResponseData(res)
+    },
+    e => {
+      if (e && e.response) {
+        e.resposne = transformResponseData(e.response)
+      }
+      return Promise.reject(e)
+    }
+  )
 }
 
 // 修改config参数
